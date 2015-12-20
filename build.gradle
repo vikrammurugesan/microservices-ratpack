@@ -1,0 +1,50 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+version = '1.0'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Quickstart',
+                   'Implementation-Version': version
+    }
+}
+
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'io.ratpack:ratpack-gradle:0.9.18'
+  }
+}
+
+apply plugin: 'io.ratpack.ratpack-java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
+    compile ratpack.dependency('spring-boot')
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+
+mainClassName = "springpack.Main"
+
+test {
+    systemProperties 'property': 'value'
+}
+
+uploadArchives {
+    repositories {
+       flatDir {
+           dirs 'repos'
+       }
+    }
+}
